@@ -1,41 +1,49 @@
-# Terraform module to provision an AWS API Gateway
+# Terraform module to provision a VPC Link and AWS API Gateway
 
 ## Prerequisites
-- TBD
+Provision an S3 bucket to store Terraform State and DynamoDB for state-lock
+using https://github.com/jrdalino/aws-tfstate-backend-terraform
 
-## Example Usage
-
+## Module Usage
 Include this repository as a module in your existing terraform code:
 ```
 module "apigateway" {
-  source = "git::https://luxproject.luxoft.com/stash/scm/ecdt/bp-terraform-aws-apigateway.git?ref=master"
+  source = "git::https://github.com/jrdalino/aws-apigateway-terraform.git?ref=master"
 }
 ```
 
-Initialize, Review Plan and Apply
+## Replace variables in terraform.tfvars
+
+## Initialize, Review Plan and Apply
 ```
 $ terraform init
 $ terraform plan
 $ terraform apply
 ```
 
-## Inputs
-- TBD
-
-## Outputs
-- TDB
-
 ## API Gateway Usage
 
-Import the swagger template
+- Import the swagger template
 ```
 $ aws apigateway import-rest-api \
 --parameters endpointConfigurationTypes=REGIONAL \
---body file://~/environment/bp-terraform-aws-apigateway/api-swagger.json \
+--body file://~/environment/aws-apigateway-terraform/api-swagger.json \
 --fail-on-warnings
 ```
 
-Deploy the API
+- Deploy the API
 ```
-$ aws apigateway create-deployment --rest-api-id REPLACE_ME_WITH_API_ID --stage-name prod
+$ aws apigateway create-deployment \
+--rest-api-id REPLACE_ME_WITH_API_ID \
+--stage-name prod
 ```
+
+## Inputs
+| Name | Description |
+|------|-------------|
+| | |
+
+## Outputs
+| Name | Description |
+|------|-------------|
+| | |
