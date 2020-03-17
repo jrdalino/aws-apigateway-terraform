@@ -1,7 +1,21 @@
 {
     "swagger": 2.0,
     "info": {
-        "title": "BankApi"
+        "title": "myprojectapi"
+    },
+    "securityDefinitions": {
+        "MysfitsUserPoolAuthorizer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "x-amazon-apigateway-authtype": "cognito_user_pools",
+            "x-amazon-apigateway-authorizer": {
+                "type": "COGNITO_USER_POOLS",
+                "providerARNs": [
+                    "arn:aws:cognito-idp:ap-southeast-2:222337787619:userpool/ap-southeast-2_XGQmb0fKL"
+                ]
+            }
+        }
     },
     "paths": {
         "/": {
@@ -34,10 +48,10 @@
                             }
                         }
                     },
-                    "connectionId": "${vpclink_id}",
+                    "connectionId": "pqq89a",
                     "httpMethod": "GET",
                     "type": "HTTP_PROXY",
-                    "uri": "http://${backend_uri}/"
+                    "uri": "http://abd7e0971659b403fb68a28870a663c9-3cdc46b987e98fd9.elb.ap-southeast-2.amazonaws.com/"
                 }
             },
             "options": {
@@ -109,10 +123,10 @@
                 },
                 "x-amazon-apigateway-integration": {
                     "connectionType": "VPC_LINK",
-                    "connectionId": "${vpclink_id}",
+                    "connectionId": "pqq89a",
                     "httpMethod": "GET",
                     "type": "HTTP_PROXY",
-                    "uri": "http://${backend_uri}/customer/getAllCustomers/",
+                    "uri": "http://abd7e0971659b403fb68a28870a663c9-3cdc46b987e98fd9.elb.ap-southeast-2.amazonaws.com/customers",
                     "responses": {
                         "default": {
                             "statusCode": "200",
