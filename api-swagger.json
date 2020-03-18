@@ -1,10 +1,10 @@
 {
     "swagger": 2.0,
     "info": {
-        "title": "myprojectapi"
+        "title": "myproject-api"
     },
     "securityDefinitions": {
-        "MysfitsUserPoolAuthorizer": {
+        "CustomersUserPoolAuthorizer": {
             "type": "apiKey",
             "name": "Authorization",
             "in": "header",
@@ -12,7 +12,7 @@
             "x-amazon-apigateway-authorizer": {
                 "type": "COGNITO_USER_POOLS",
                 "providerARNs": [
-                    "arn:aws:cognito-idp:ap-southeast-2:222337787619:userpool/ap-southeast-2_XGQmb0fKL"
+                    "arn:aws:cognito-idp:${aws_region}:${aws_account}:userpool/${aws_cognito_user_pool_id}"
                 ]
             }
         }
@@ -48,10 +48,10 @@
                             }
                         }
                     },
-                    "connectionId": "pqq89a",
+                    "connectionId": "${aws_api_gateway_vpc_link_id}",
                     "httpMethod": "GET",
                     "type": "HTTP_PROXY",
-                    "uri": "http://abd7e0971659b403fb68a28870a663c9-3cdc46b987e98fd9.elb.ap-southeast-2.amazonaws.com/"
+                    "uri": "http://${aws_lb_dns_name}/"
                 }
             },
             "options": {
@@ -123,10 +123,104 @@
                 },
                 "x-amazon-apigateway-integration": {
                     "connectionType": "VPC_LINK",
-                    "connectionId": "pqq89a",
+                    "connectionId": "${aws_api_gateway_vpc_link_id}",
                     "httpMethod": "GET",
                     "type": "HTTP_PROXY",
-                    "uri": "http://abd7e0971659b403fb68a28870a663c9-3cdc46b987e98fd9.elb.ap-southeast-2.amazonaws.com/customers",
+                    "uri": "http://${aws_lb_dns_name}/customers",
+                    "responses": {
+                        "default": {
+                            "statusCode": "200",
+                            "responseParameters": {
+                                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
+                                "method.response.header.Access-Control-Allow-Methods": "'*'",
+                                "method.response.header.Access-Control-Allow-Origin": "'*'"
+                            }
+                        }
+                    }
+                }
+            },
+            "options": {
+                "summary": "CORS support",
+                "description": "Enable CORS by returning correct headers\n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CORS"
+                ],
+                "x-amazon-apigateway-integration": {
+                    "type": "mock",
+                    "requestTemplates": {
+                        "application/json": "{\n  \"statusCode\" : 200\n}\n"
+                    },
+                    "responses": {
+                        "default": {
+                            "statusCode": "200",
+                            "responseParameters": {
+                                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'",
+                                "method.response.header.Access-Control-Allow-Methods": "'*'",
+                                "method.response.header.Access-Control-Allow-Origin": "'*'"
+                            },
+                            "responseTemplates": {
+                                "application/json": "{}\n"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Default response for CORS method",
+                        "headers": {
+                            "Access-Control-Allow-Headers": {
+                                "type": "string"
+                            },
+                            "Access-Control-Allow-Methods": {
+                                "type": "string"
+                            },
+                            "Access-Control-Allow-Origin": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/customers/{customer_id}": {
+            "get": {
+                "parameters": [{
+                    "name": "customer_id",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Default response for CORS method",
+                        "headers": {
+                            "Access-Control-Allow-Headers": {
+                                "type": "string"
+                            },
+                            "Access-Control-Allow-Methods": {
+                                "type": "string"
+                            },
+                            "Access-Control-Allow-Origin": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration": {
+                    "requestParameters": {
+                        "integration.request.path.customer_id": "method.request.path.customer_id"
+                    },
+                    "connectionType": "VPC_LINK",
+                    "connectionId": "${aws_api_gateway_vpc_link_id}",
+                    "httpMethod": "GET",
+                    "type": "HTTP_PROXY",
+                    "uri": "http://${aws_lb_dns_name}/customers/{customer_id}",
                     "responses": {
                         "default": {
                             "statusCode": "200",

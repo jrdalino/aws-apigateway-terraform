@@ -1,8 +1,8 @@
 # VPC Link
-#  output "aws_api_gateway_vpc_link_id" {
-#   value       = "${aws_api_gateway_vpc_link.vpclink.id}"
-#   description = "The identifier of the VpcLink."
-# }
+  output "aws_api_gateway_vpc_link_id" {
+   value       = "${aws_api_gateway_vpc_link.vpclink.id}"
+   description = "The identifier of the VpcLink."
+ }
 
 # API Gateway
 output "aws_api_gateway_rest_api_id" {

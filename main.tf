@@ -3,17 +3,20 @@ data "template_file" "aws_api_swagger" {
 
   #Pass the varible value if needed in swagger file
   vars = {
-    vpclink_id = "pqq89a"
-    backend_uri = "http://abd7e0971659b403fb68a28870a663c9-3cdc46b987e98fd9.elb.ap-southeast-2.amazonaws.com/"
+    aws_account = var.aws_account
+    aws_region = var.aws_region
+    aws_cognito_user_pool_id = var.aws_cognito_user_pool_id
+    aws_lb_dns_name = var.aws_lb_dns_name # "abd7e0971659b403fb68a28870a663c9-3cdc46b987e98fd9.elb.ap-southeast-2.amazonaws.com"
+    aws_api_gateway_vpc_link_id =  "${aws_api_gateway_vpc_link.vpclink.id}" # "pqq89a"
   }
 }
 
 # VPC Link
-# resource "aws_api_gateway_vpc_link" "vpclink" {
-#   name        = var.aws_api_gateway_vpc_link_name
-#   description = var.aws_api_gateway_vpc_link_description
-#   target_arns = var.aws_api_gateway_vpc_link_target_arns
-# }
+resource "aws_api_gateway_vpc_link" "vpclink" {
+   name        = var.aws_api_gateway_vpc_link_name
+   description = var.aws_api_gateway_vpc_link_description
+   target_arns = ["${var.aws_api_gateway_vpc_link_target_arns}"]
+ }
 
 # API Gateway
 resource "aws_api_gateway_rest_api" "api" {
@@ -23,5 +26,5 @@ resource "aws_api_gateway_rest_api" "api" {
 
   endpoint_configuration {
     types = ["REGIONAL"]
-  }  
+  }
 }

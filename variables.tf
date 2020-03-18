@@ -9,6 +9,18 @@ variable "aws_account" {
   description = "Used AWS Account."    
 }
 
+# Cognito
+variable "aws_cognito_user_pool_id" {
+  type        = string
+  description = "Cognito User Pool Id."    
+}
+
+# Network Load Balancer
+variable "aws_lb_dns_name" {
+  type        = string
+  description = "Network Load Balancer URI."
+}
+
 # VPC Link
 variable "aws_api_gateway_vpc_link_name" {
   type        = string
