@@ -2,7 +2,7 @@
 aws_region  = "ap-southeast-2"
 aws_account = "222337787619"
 
-# Cognito
+# Cognito User Pool
 aws_cognito_user_pool_id = "ap-southeast-2_XGQmb0fKL"
 
 # Network Load Balancer

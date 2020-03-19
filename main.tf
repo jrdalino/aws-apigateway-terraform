@@ -6,8 +6,8 @@ data "template_file" "aws_api_swagger" {
     aws_account = var.aws_account
     aws_region = var.aws_region
     aws_cognito_user_pool_id = var.aws_cognito_user_pool_id
-    aws_lb_dns_name = var.aws_lb_dns_name # "abd7e0971659b403fb68a28870a663c9-3cdc46b987e98fd9.elb.ap-southeast-2.amazonaws.com"
-    aws_api_gateway_vpc_link_id =  "${aws_api_gateway_vpc_link.vpclink.id}" # "pqq89a"
+    aws_lb_dns_name = var.aws_lb_dns_name 
+    aws_api_gateway_vpc_link_id =  "${aws_api_gateway_vpc_link.vpclink.id}"
   }
 }
 

@@ -21,16 +21,7 @@ $ terraform plan
 $ terraform apply
 ```
 
-- Deploy the API
-```
-$ aws apigateway create-deployment --rest-api-id REPLACE_ME_WITH_API_ID --stage-name prod
-```
-- Invoke API
-```
-$ https://REPLACE_ME_WITH_API_ID.execute-api.REPLACE_ME_WITH_REGION.amazonaws.com/prod
-```
-
-## API Gateway Usage
+## AWS CLI
 
 - Import the swagger template
 ```
@@ -40,11 +31,16 @@ $ aws apigateway import-rest-api \
 --fail-on-warnings
 ```
 
-- Deploy the API
+- Create Deployment
 ```
 $ aws apigateway create-deployment \
 --rest-api-id REPLACE_ME_WITH_API_ID \
 --stage-name prod
+```
+
+- Invoke API
+```
+$ curl https://REPLACE_ME_WITH_API_ID.execute-api.REPLACE_ME_WITH_REGION.amazonaws.com/prod
 ```
 
 ## Inputs

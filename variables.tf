@@ -9,7 +9,7 @@ variable "aws_account" {
   description = "Used AWS Account."    
 }
 
-# Cognito
+# Cognito User Pool
 variable "aws_cognito_user_pool_id" {
   type        = string
   description = "Cognito User Pool Id."    
