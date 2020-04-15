@@ -52,3 +52,6 @@ $ curl https://REPLACE_ME_WITH_API_ID.execute-api.REPLACE_ME_WITH_REGION.amazona
 | Name | Description |
 |------|-------------|
 | | |
+
+## References
+- https://docs.aws.amazon.com/console/apigateway/documentation-parts
